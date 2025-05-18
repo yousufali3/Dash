@@ -10,6 +10,7 @@ import {
   XCircle,
   ChevronDown,
 } from 'lucide-react';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const MobilePayment = () => {
   const [activeTab, setActiveTab] = useState('deposits');
@@ -29,9 +30,7 @@ const MobilePayment = () => {
   const fetchDepositRequests = async () => {
     setLoading(true);
     try {
-      const response = await fetch(
-        'http://localhost:5000/api/wallet/admin/pending-deposits'
-      );
+      const response = await fetch(`${apiUrl}/wallet/admin/pending-deposits`);
       const data = await response.json();
       if (data.data && data.data.length > 0) {
         // Extract all deposit requests and add user information
@@ -64,7 +63,7 @@ const MobilePayment = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        'http://localhost:5000/api/wallet/admin/pending-withdrawals'
+        `${apiUrl}/wallet/admin/pending-withdrawals`
       );
       const data = await response.json();
       if (data.data && data.data.length > 0) {
@@ -129,7 +128,7 @@ const MobilePayment = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/wallet/deposit/${walletId}/${requestId}`,
+        `${apiUrl}/wallet/deposit/${walletId}/${requestId}`,
         {
           method: 'PATCH',
           headers: {
@@ -177,7 +176,7 @@ const MobilePayment = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/wallet/withdraw/${walletId}/${requestId}`,
+        `${apiUrl}/wallet/withdraw/${walletId}/${requestId}`,
         {
           method: 'PATCH',
           headers: {
